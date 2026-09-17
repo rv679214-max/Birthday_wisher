@@ -150,6 +150,29 @@ def load_css():
             display: none;
         }
 
+        .st-key-mobile-navbar [data-testid="stHorizontalBlock"] {
+            width: 100% !important;
+            flex-wrap: nowrap !important;
+        }
+        .st-key-mobile-navbar [data-testid="column"] {
+            width: 25% !important;
+            min-width: 0 !important;
+            flex: 0 0 25% !important;
+        }
+        .st-key-mobile-navbar div.stButton,
+        .st-key-mobile-navbar div.stButton > button {
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+        .st-key-mobile-navbar div.stButton > button {
+            padding-left: 2px !important;
+            padding-right: 2px !important;
+            font-size: clamp(0.55rem, 1.6vw, 0.85rem) !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+
         @media (max-width: 600px) {
             .mobile-navbar + div[data-testid="stHorizontalBlock"] {
                 padding: 6px 2px;
