@@ -167,7 +167,15 @@ def load_css():
         .st-key-mobile-navbar div.stButton > button {
             padding-left: 2px !important;
             padding-right: 2px !important;
+            height: 42px !important;
+            min-height: 42px !important;
+            max-height: 42px !important;
+            box-sizing: border-box !important;
             font-size: clamp(0.55rem, 1.6vw, 0.85rem) !important;
+            line-height: 1.1 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
             white-space: nowrap !important;
             overflow: hidden !important;
             text-overflow: ellipsis !important;
