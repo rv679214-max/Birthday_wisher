@@ -33,6 +33,15 @@ def load_css():
             z-index: 999999 !important;
         }
 
+        /* Replace Streamlit's sidebar with the shared navbar on every screen size. */
+        section[data-testid="stSidebar"],
+        div[data-testid="stSidebarCollapsedControl"],
+        header button[data-testid="stSidebarCollapseButton"],
+        header button[data-testid="stHeaderIconButton"] {
+            display: none !important;
+            visibility: hidden !important;
+        }
+
         /* Hide all default Streamlit menus, badges, and repo information */
         #MainMenu { visibility: hidden !important; display: none !important; }
         footer { visibility: hidden !important; display: none !important; }
@@ -73,6 +82,20 @@ def load_css():
 
         /* ---------- Mobile responsiveness ---------- */
         @media (max-width: 600px) {
+            section[data-testid="stSidebar"],
+            div[data-testid="stSidebarCollapsedControl"],
+            header button[data-testid="stSidebarCollapseButton"],
+            header button[data-testid="stHeaderIconButton"] {
+                display: none !important;
+                visibility: hidden !important;
+            }
+            .mobile-navbar {
+                display: block !important;
+            }
+            .mobile-navbar-spacer {
+                display: block !important;
+                height: 72px;
+            }
             .cute-title { font-size: 2.1em !important; }
             .cute-title + .cute-title { font-size: 2.6em !important; }
             .cute-subtitle { font-size: 1.2em !important; }
@@ -88,6 +111,8 @@ def load_css():
             div.stButton > button {
                 width: 100%;
                 padding: 0.7em 1em !important;
+                color: #000000 !important;
+                -webkit-text-fill-color: #000000 !important;
             }
             div[data-testid="column"] {
                 width: 100% !important;
@@ -101,6 +126,25 @@ def load_css():
             padding-right: 1rem;
             max-width: 900px;
             padding-top: 2rem !important;
+        }
+
+        .mobile-navbar,
+        .mobile-navbar-spacer {
+            display: block;
+        }
+
+        .mobile-navbar-spacer {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .mobile-navbar + div[data-testid="stHorizontalBlock"] {
+                padding: 6px 2px;
+                background: rgba(255, 250, 247, 0.94);
+                border: 1px solid #f7c6d9;
+                border-radius: 16px;
+                box-shadow: 0 4px 16px rgba(214, 51, 108, 0.2);
+            }
         }
 
         /* Headings in cute script font */
@@ -183,7 +227,8 @@ def load_css():
         /* Buttons */
         div.stButton > button {
             background: linear-gradient(135deg, #ff8fab, #ffb3c6);
-            color: white;
+            color: #000000 !important;
+            -webkit-text-fill-color: #000000 !important;
             border: none;
             border-radius: 30px;
             padding: 0.6em 1.6em;
@@ -241,6 +286,23 @@ def floating_decor():
             f'<div class="floaty" style="left:{left}; animation-delay:{delay};">{emoji}</div>'
         )
     st.markdown(decor_html, unsafe_allow_html=True)
+
+
+def mobile_navbar():
+    """Keep the four app pages reachable when Streamlit collapses the sidebar."""
+    st.markdown('<div class="mobile-navbar">', unsafe_allow_html=True)
+    links = [
+        ("Home", "app.py", "🎂"),
+        ("Memories", "pages/1_📸_Memories.py", "📸"),
+        ("Wishes", "pages/2_💌_Birthday_Wishes.py", "💌"),
+        ("For You", "pages/3_🎁_Just_For_You.py", "🎁"),
+    ]
+    columns = st.columns(4)
+    for column, (label, page, icon) in zip(columns, links):
+        with column:
+            if st.button(f"{icon} {label}", key=f"mobile_nav_{label}", use_container_width=True):
+                st.switch_page(page)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
 def heart_divider():

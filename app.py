@@ -1,6 +1,6 @@
 import time
 import streamlit as st
-from utils import load_css, floating_decor, heart_divider, cute_photo, ASSETS
+from utils import load_css, floating_decor, mobile_navbar, heart_divider, cute_photo, ASSETS
 
 st.set_page_config(
     page_title="Happy Birthday Roshini 🎂",
@@ -9,6 +9,7 @@ st.set_page_config(
 )
 
 load_css()
+mobile_navbar()
 floating_decor()
 
 st.markdown('<div class="cute-title">Happy Birthday</div>', unsafe_allow_html=True)

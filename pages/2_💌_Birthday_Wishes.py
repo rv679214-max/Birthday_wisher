@@ -1,8 +1,9 @@
 import streamlit as st
-from utils import load_css, floating_decor, heart_divider
+from utils import load_css, floating_decor, mobile_navbar, heart_divider
 
 st.set_page_config(page_title="Birthday Wishes 💌", page_icon="💌", layout="centered")
 load_css()
+mobile_navbar()
 floating_decor()
 
 st.markdown('<div class="section-title">A Few Things I Want You To Know 💌</div>', unsafe_allow_html=True)
