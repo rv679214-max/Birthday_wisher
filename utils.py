@@ -27,8 +27,13 @@ def load_css():
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Hide default streamlit chrome, header, footer, menus, and repo information */
-        header[data-testid="stHeader"] { visibility: hidden !important; height: 0 !important; }
+        /* Keep header container transparent so the sidebar toggle arrow is visible on mobile */
+        header[data-testid="stHeader"] {
+            background: transparent !important;
+            z-index: 999999 !important;
+        }
+
+        /* Hide all default Streamlit menus, badges, and repo information */
         #MainMenu { visibility: hidden !important; display: none !important; }
         footer { visibility: hidden !important; display: none !important; }
         div[data-testid="stToolbar"] { visibility: hidden !important; height: 0 !important; display: none !important; }
@@ -38,13 +43,21 @@ def load_css():
         button[title="View app source"] { display: none !important; }
         [data-testid="stAppDeployButton"] { display: none !important; }
 
+        /* Highlight the sidebar expand/collapse button for easy tapping on mobile */
+        button[data-testid="baseButton-headerNoPadding"], 
+        button[data-testid="stHeaderIconButton"] {
+            color: #d6336c !important;
+            background-color: rgba(255, 255, 255, 0.8) !important;
+            border-radius: 50% !important;
+            visibility: visible !important;
+            display: inline-flex !important;
+        }
+
         /* Sidebar */
         section[data-testid="stSidebar"] {
             background: linear-gradient(180deg, #ffd6e0 0%, #ffe9d6 100%);
         }
-        /* Style sidebar text WITHOUT touching icon fonts (fixes the
-           collapse-arrow icon showing as literal text like
-           "keyboard_double_arrow_right") */
+        
         section[data-testid="stSidebar"] p,
         section[data-testid="stSidebar"] span:not([data-testid="stIconMaterial"]),
         section[data-testid="stSidebar"] a,
@@ -53,7 +66,7 @@ def load_css():
             color: #6b3d4d !important;
             font-family: 'Poppins', sans-serif;
         }
-        /* Make sure any material icon keeps its own icon font & isn't hidden */
+
         [data-testid="stIconMaterial"] {
             font-family: 'Material Symbols Rounded', 'Material Icons', sans-serif !important;
         }
@@ -82,7 +95,7 @@ def load_css():
                 min-width: 100% !important;
             }
         }
-        /* Block main content shouldn't be too cramped on small screens */
+
         .block-container {
             padding-left: 1rem;
             padding-right: 1rem;
