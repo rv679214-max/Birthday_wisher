@@ -82,6 +82,19 @@ def load_css():
 
         /* ---------- Mobile responsiveness ---------- */
         @media (max-width: 600px) {
+            .st-key-mobile-navbar {
+                width: 100% !important;
+            }
+            .st-key-mobile-navbar [data-testid="stHorizontalBlock"] {
+                flex-wrap: nowrap !important;
+                gap: 4px !important;
+            }
+            .st-key-mobile-navbar [data-testid="column"] {
+                width: 25% !important;
+                flex: 1 1 25% !important;
+                min-width: 0 !important;
+                padding: 0 2px !important;
+            }
             section[data-testid="stSidebar"],
             div[data-testid="stSidebarCollapsedControl"],
             header button[data-testid="stSidebarCollapseButton"],
@@ -290,19 +303,22 @@ def floating_decor():
 
 def mobile_navbar():
     """Keep the four app pages reachable when Streamlit collapses the sidebar."""
-    st.markdown('<div class="mobile-navbar">', unsafe_allow_html=True)
     links = [
         ("Home", "app.py", "🎂"),
         ("Memories", "pages/1_📸_Memories.py", "📸"),
         ("Wishes", "pages/2_💌_Birthday_Wishes.py", "💌"),
         ("For You", "pages/3_🎁_Just_For_You.py", "🎁"),
     ]
-    columns = st.columns(4)
-    for column, (label, page, icon) in zip(columns, links):
-        with column:
-            if st.button(f"{icon} {label}", key=f"mobile_nav_{label}", use_container_width=True):
-                st.switch_page(page)
-    st.markdown('</div>', unsafe_allow_html=True)
+    with st.container(key="mobile-navbar"):
+        columns = st.columns(4)
+        for column, (label, page, icon) in zip(columns, links):
+            with column:
+                if st.button(
+                    f"{icon} {label}",
+                    key=f"mobile_nav_{label}",
+                    use_container_width=True,
+                ):
+                    st.switch_page(page)
 
 
 def heart_divider():
